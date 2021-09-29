@@ -23,6 +23,7 @@ class LoginTest(unittest.TestCase):
         cls.driver.implicitly_wait(10)
         cls.driver.maximize_window()
 
+    # Login to dashboard with valid credentials
     def test_01_valid_login(self):
         login = LoginPage(self.driver)
         login.valid_login_with_credentials("", "")
@@ -30,6 +31,7 @@ class LoginTest(unittest.TestCase):
         dashboard.screen_loaded()
         dashboard.log_out()
 
+    # Attempt to login to dashboard with invalid credentials
     def test_02_login_with_invalid_credentials(self):
         login = LoginPage(self.driver)
         self.wait = WebDriverWait(self.driver, 10)
@@ -41,10 +43,11 @@ class LoginTest(unittest.TestCase):
                          "Login Error message is incorrect")
         print("Login error message is visible")
 
+    # Attempt to login to dashboard with an invalid username and valid password
     def test_03_login_with_empty_username(self):
         login = LoginPage(self.driver)
         self.wait = WebDriverWait(self.driver, 10)
-        login.valid_login_with_credentials("", "K0stukas123!")
+        login.valid_login_with_credentials("", "")
         error_msg = self.wait.until(
             presence_of_element_located((By.XPATH, "//div[contains(@class,'login-error-container')]/p")))
         time.sleep(2)
